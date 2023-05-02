@@ -10,7 +10,7 @@ function HomePage(props) {
       <Fragment>
          <Head>
             <title>React meetups</title>
-            <meta name="desciption" contento="List of all meetups"></meta>
+            <meta name="description" content="List of all meetups"></meta>
          </Head>
          <MeetUpList meetups={props.meetups} />
       </Fragment>
@@ -51,7 +51,7 @@ export async function getStaticProps(){
             description:meetup.description,
             id:meetup._id.toString()
          })),
-         revalidate:10 // seconds
+         revalidate:2 // seconds
       }
    }
 }

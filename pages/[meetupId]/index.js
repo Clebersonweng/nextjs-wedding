@@ -9,16 +9,13 @@ import MeetupDetail from '../../components/meetups/MeetupDetail';
 
 function DetailPage(props){
    const router = useRouter();
-
-   const newsId = router.query.newsId;
-
    //send a request to the backend API
    // to fetch the news item with newsId
    return (
       <Fragment>
          <Head>
             <title>{props.meetupData.title}</title>
-            <meta name="desciption" contento={props.meetupData.description}></meta>
+            <meta name="desciption" content={props.meetupData.description}></meta>
          </Head>
          <MeetupDetail
             image={props.meetupData.image}
@@ -41,7 +38,10 @@ export async function getStaticPaths() {
 
    return {
       fallback:'blocking', //false, blocking, true
-      paths: meetups.map((meetup)=> ({params: {meetupId: meetup._id.toString() } })),
+      paths: meetups.map((meetup)=> ({
+            params: { meetupId: meetup._id.toString() }
+         }),
+      ),
    }
 };
 
@@ -55,9 +55,7 @@ export async function getStaticProps(context) {
 
    const selectedMeetup = await meetupsCollection.findOne({ _id:new ObjectId(meetupId)});
 
-
    client.close();
-   console.log('selectedMeetup',selectedMeetup);
 
    return {
       props: {
