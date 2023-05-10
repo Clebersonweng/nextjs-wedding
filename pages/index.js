@@ -9,8 +9,8 @@ function HomePage(props) {
    return (
       <Fragment>
          <Head>
-            <title>React meetups</title>
-            <meta name="desciption" contento="List of all meetups"></meta>
+            <title>Kleica & Cleberson</title>
+            <meta name="description" content="Casamento de Kleica e Cleberson"></meta>
          </Head>
          <MeetUpList meetups={props.meetups} />
       </Fragment>
@@ -51,7 +51,7 @@ export async function getStaticProps(){
             description:meetup.description,
             id:meetup._id.toString()
          })),
-         revalidate:10 // seconds
+         revalidate:1 // seconds
       }
    }
 }
