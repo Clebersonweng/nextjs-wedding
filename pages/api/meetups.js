@@ -1,13 +1,5 @@
 // api/new-meetup
 import { MongoClient } from 'mongodb';
-// necesary stay before handler to change the size image
-export const config = {
-   api: {
-      bodyParser: {
-         sizeLimit: '25mb' // Set desired value here } 
-      }
-   }
-};
 
 async function handler(req,res) {
    if(req.method === "POST") {
@@ -26,7 +18,7 @@ async function handler(req,res) {
 
       client.close();
 
-      res.status(201).json({message:'Wedding Image inserted.'})
+      res.status(201).json({message:'Wedding inserted.'})
    }
 }
 

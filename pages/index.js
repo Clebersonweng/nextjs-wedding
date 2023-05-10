@@ -10,7 +10,7 @@ function HomePage(props) {
       <Fragment>
          <Head>
             <title>React meetups</title>
-            <meta name="description" content="List of all meetups"></meta>
+            <meta name="desciption" contento="List of all meetups"></meta>
          </Head>
          <MeetUpList meetups={props.meetups} />
       </Fragment>
@@ -33,28 +33,26 @@ function HomePage(props) {
    }
 };*/
 
-export async function getStaticProps() {
-   // fetch data from an API
+export async function getStaticProps(){
+   //fetch data from an Api
    const client =  await MongoClient.connect('mongodb+srv://clebersonweng:MongoDb.010488@mongodb.de9az25.mongodb.net/MongoDb?retryWrites=true&w=majority');
    const db = client.db();
-
-   const meetupsCollection = db.collection('meetups');
-
+   const meetupsCollection = db.collection('wedding');
    const meetups = await meetupsCollection.find().toArray();
 
    client.close();
 
    return {
-      props: {
-         meetups: meetups.map((meetup) => ({
-            title: meetup.title,
-            address: meetup.address,
-            image: meetup.image,
-            id: meetup._id.toString(),
+      props:{
+         meetups:meetups.map(meetup => ({
+            title:meetup.title,
+            address:meetup.title,
+            image:meetup.image,
+            description:meetup.description,
+            id:meetup._id.toString()
          })),
-      },
-      revalidate: 1,
-   };
+         revalidate:10 // seconds
+      }
+   }
 }
-
 export default HomePage;
