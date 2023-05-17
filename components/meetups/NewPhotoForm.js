@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 
 import Button from '../ui/Button';
 
-function NewMeetupForm(props) {
+function NewPhotoForm(props) {
 
 	const [showLoader, setShowLoader] = useState(false)
 	
@@ -22,7 +22,7 @@ function NewMeetupForm(props) {
 			image: enteredImage,
 		};
 
-		props.onAddMeetup(meetupData);
+		props.onAddPhoto(meetupData);
 	}
 
 	
@@ -75,4 +75,4 @@ function NewMeetupForm(props) {
 	);
 }
 
-export default NewMeetupForm;
+export default NewPhotoForm;

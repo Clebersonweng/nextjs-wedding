@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { ArrowDownIcon } from '@heroicons/react/24/solid'
 
-function MeetupItem(props) {
+function PhotoItem(props) {
    const router = useRouter();
 
    function showDetailsHandler() {
@@ -38,4 +38,4 @@ function MeetupItem(props) {
    );
 }
 
-export default MeetupItem;
+export default PhotoItem;

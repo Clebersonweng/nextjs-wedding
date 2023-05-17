@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
-import PhotoList from '../components/meetups/MeetupList';
+import PhotoList from '../components/meetups/PhotoList';
 
 function HomePage(props) {
 
@@ -41,24 +41,21 @@ export async function getStaticProps() {
    client.close();*/
 
 
-   const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image`, {
+   const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=400`, {
+      method: "GET",
       headers: {
          Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
-      }
+      },
    }).then(r => r.json())
 
-   
-
-   const { resources } = results;
-   console.log("result", resources.length);
    return {
-      props:{
-         photos:resources.map(photo => ({
-            title:photo.public_id,
-            image:photo.secure_url,
-            id:photo.asset_id
+      props: {
+         photos: resources.map(photo => ({
+            title: photo.public_id,
+            image: photo.secure_url,
+            id: photo.asset_id
          })),
-         revalidate:1 // seconds
+         revalidate: 1 // seconds
       }
    }
 }

@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { MongoClient,ObjectId } from 'mongodb';
 
-import MeetupDetail from '../../components/meetups/MeetupDetail';
+import PhotoDetail from '../../components/meetups/PhotoDetail';
 //our-domain.com/news/something-important
 
 function DetailPage(props){
@@ -20,7 +20,7 @@ function DetailPage(props){
             <title>{props.meetupData.title}</title>
             <meta name="description" contento={props.meetupData.title}></meta>
          </Head>
-         <MeetupDetail
+         <PhotoDetail
             image={props.meetupData.image}
             title={props.meetupData.title}
          />

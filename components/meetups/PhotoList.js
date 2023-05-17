@@ -1,10 +1,10 @@
-import MeetupItem from './MeetupItem';
+import PhotoItem from './PhotoItem';
 
-function MeetupList(props) {
+function PhotoList(props) {
    return (
       <div className="px-10 grid grid-cols-4 gap-4">
          {props.meetups.map((meetup) => (
-            <MeetupItem
+            <PhotoItem
                key={meetup.id}
                id={meetup.id}
                image={meetup.image}
@@ -16,4 +16,4 @@ function MeetupList(props) {
    );
 }
 
-export default MeetupList;
+export default PhotoList;

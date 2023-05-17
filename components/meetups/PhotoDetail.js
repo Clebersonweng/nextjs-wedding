@@ -1,7 +1,6 @@
 import { Fragment } from "react";
-import classes from './MeetupDetail.module.css';
 
-function MeetupDetail(props){
+function PhotoDetail(props){
    return (
       <Fragment>
          <section className={classes.detail}>
@@ -11,4 +10,4 @@ function MeetupDetail(props){
    )
 };
 
-export default MeetupDetail;
+export default PhotoDetail;
