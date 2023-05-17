@@ -1,14 +1,14 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
 
-import { Router, useRouter } from 'next/router';
-import NewMeetUpForm from '../../components/meetups/NewMeetupForm';
+import { useRouter } from 'next/router';
+import NewPhotoForm from '../../components/meetups/NewMeetupForm';
 
 function NewMeetupPage() {
    const router = useRouter();
 
-   async function addMeetupHandler(enteredMeetupData) {
-      const response = await fetch('/api/new-meetup',{
+   async function addPhotoHandler(enteredMeetupData) {
+      const response = await fetch('/api/new-photo',{
          method:'POST',
          body:JSON.stringify(enteredMeetupData),
          headers:{'Content-type':'application/json'}
@@ -24,10 +24,10 @@ function NewMeetupPage() {
    return (
       <Fragment>
          <Head>
-            <title>Add new meetup</title>
-            <meta name="desciption" contento="Add new meetup"></meta>
+            <title>Add new photo</title>
+            <meta name="description" content="Add new photo"></meta>
          </Head>
-         <NewMeetUpForm onAddMeetup={addMeetupHandler}/>
+         <NewPhotoForm onAddMeetup={addPhotoHandler}/>
       </Fragment>
    )
 };

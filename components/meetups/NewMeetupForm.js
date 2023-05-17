@@ -1,90 +1,93 @@
 import { useRef, useState } from 'react';
 
-import Card from '../ui/Card';
-import classes from './NewMeetupForm.module.css';
+import Button from '../ui/Button';
 
 function NewMeetupForm(props) {
-	const [postImage, setPostImage] = useState({
-		myFile: "",
-	});
+
+	const [showLoader, setShowLoader] = useState(false)
+	
 	const titleInputRef = useRef();
 	const imageInputRef = useRef();
-	const addressInputRef = useRef();
-	const descriptionInputRef = useRef();
 
 	function submitHandler(event) {
 		event.preventDefault();
 
 		const enteredTitle = titleInputRef.current.value;
 		const enteredImage = imageInputRef.current.value;
-		const enteredAddress = addressInputRef.current.value;
-		const enteredDescription = descriptionInputRef.current.value;
-		console.log("image", postImage.myFile)
+
 		const meetupData = {
 			title: enteredTitle,
-			image: postImage.myFile,
-			address: enteredAddress,
-			description: enteredDescription,
+			image: enteredImage,
 		};
 
 		props.onAddMeetup(meetupData);
 	}
 
-	const convertToBase64 = (file) => {
-		return new Promise((resolve, reject) => {
-			const fileReader = new FileReader();
-			fileReader.readAsDataURL(file);
-			fileReader.onload = () => {
-				resolve(fileReader.result);
-			};
-			fileReader.onerror = (error) => {
-				reject(error);
-			};
-		});
-	};
-	const handleFileUpload = async (e) => {
-		const file = e.target.files[0];
-		const base64 = await convertToBase64(file);
-		setPostImage({ ...postImage, myFile: base64 });
-	};
+	const download = e => {
+		console.log(e.target.href);
+		fetch(e.target.href, {
+		  method: "GET",
+		  headers: {}
+		})
+		  .then(response => {
+			 response.arrayBuffer().then(function(buffer) {
+				const url = window.URL.createObjectURL(new Blob([buffer]));
+				const link = document.createElement("a");
+				link.href = url;
+				link.setAttribute("download", "image.png"); //or any other extension
+				document.body.appendChild(link);
+				link.click();
+			 });
+		  })
+		  .catch(err => {
+			 console.log(err);
+		  });
+	 };
+
 	return (
-		<Card>
-			<form className={classes.form} onSubmit={submitHandler}>
-				<div className={classes.control}>
-					<label htmlFor='title'>Meetup Title</label>
-					<input type='text' required id='title' ref={titleInputRef} />
-				</div>
-				<div className={classes.control}>
-					<label htmlFor='image'>Meetup Image</label>
-					<input
-						type="file"
-						label="Image"
-						name="image"
-						id='image'
-						accept=".jpeg, .png, .jpg"
-						onChange={(e) => handleFileUpload(e)}
-						ref={imageInputRef}
-						required
-					/>
-				</div>
-				<div className={classes.control}>
-					<label htmlFor='address'>Address</label>
-					<input type='text' required id='address' ref={addressInputRef} />
-				</div>
-				<div className={classes.control}>
-					<label htmlFor='description'>Description</label>
-					<textarea
-						id='description'
-						required
-						rows='5'
-						ref={descriptionInputRef}
-					></textarea>
-				</div>
-				<div className={classes.actions}>
-					<button>Add Meetup</button>
-				</div>
-			</form>
-		</Card>
+		<div className="flex">
+			<div className="w-1/5  "></div>
+			<div className="w-3/5 bg-blue-100 rounded h-50 mt-2 p-2">
+				<form className="w-full max-w-sm" onSubmit={submitHandler}>
+					<div className="md:flex md:items-center mb-6">
+						<div className="md:w-1/3">
+							<label className="block text-gray-700 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
+								Titulo :
+							</label>
+						</div>
+						<div className="md:w-2/3">
+							<input className="bg-white-200 appearance-none border-2 border-white-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" ref={titleInputRef} />
+						</div>
+					</div>
+					<div className="md:flex md:items-center mb-6">
+						<div className="md:w-1/3">
+							<label className="block text-gray-700 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-password">
+								Foto :
+							</label>
+						</div>
+						<div className="md:w-2/3">
+							<input
+								className="bg-white-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+								id='image'
+								type="url"
+								placeholder=""
+								ref={imageInputRef}
+								required
+							/>
+						</div>
+					</div>
+
+					<div className="md:flex md:items-center">
+						<div className="md:w-1/3"></div>
+						<div className="md:w-2/3">
+							<Button color="secondary" size="md" styleClasses="m-1" type="reset" text="Cancelar" />
+							<Button color="cyan" size="md" styleClasses="m-1" loading={showLoader} disabled={showLoader} text="Guardar" />
+						</div>
+					</div>
+				</form>
+			</div >
+			<div className="w-1/5 "></div>
+		</div >
 	);
 }
 

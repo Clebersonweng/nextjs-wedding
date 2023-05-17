@@ -39,16 +39,19 @@ export async function getStaticProps(){
    const db = client.db();
    const meetupsCollection = db.collection('wedding');
    const meetups = await meetupsCollection.find().toArray();
-
+   console.log("photos",meetups)
    client.close();
+/**
+ * 
+ 
 
+
+ */
    return {
       props:{
          meetups:meetups.map(meetup => ({
             title:meetup.title,
-            address:meetup.title,
             image:meetup.image,
-            description:meetup.description,
             id:meetup._id.toString()
          })),
          revalidate:1 // seconds

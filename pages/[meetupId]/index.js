@@ -18,13 +18,11 @@ function DetailPage(props){
       <Fragment>
          <Head>
             <title>{props.meetupData.title}</title>
-            <meta name="desciption" contento={props.meetupData.description}></meta>
+            <meta name="description" contento={props.meetupData.title}></meta>
          </Head>
          <MeetupDetail
             image={props.meetupData.image}
             title={props.meetupData.title}
-            address={props.meetupData.address}
-            description={props.meetupData.description}
          />
       </Fragment>
    )
@@ -65,8 +63,6 @@ export async function getStaticProps(context) {
             id: selectedMeetup._id.toString(),
             image:selectedMeetup.image,
             title:selectedMeetup.title,
-            address:selectedMeetup.address,
-            description:selectedMeetup.description
          }
       }
    }
