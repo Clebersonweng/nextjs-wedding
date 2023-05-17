@@ -1,8 +1,6 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
-import { MongoClient } from 'mongodb';
-
-import MeetUpList from '../components/meetups/MeetupList';
+import PhotoList from '../components/meetups/MeetupList';
 
 function HomePage(props) {
 
@@ -12,7 +10,7 @@ function HomePage(props) {
             <title>Kleica & Cleberson</title>
             <meta name="description" content="Casamento de Kleica e Cleberson"></meta>
          </Head>
-         <MeetUpList meetups={props.meetups} />
+         <PhotoList meetups={props.photos} />
       </Fragment>
    )
 };
@@ -33,21 +31,32 @@ function HomePage(props) {
    }
 };*/
 
-export async function getStaticProps(){
+export async function getStaticProps() {
    //fetch data from an Api
-   const client =  await MongoClient.connect('mongodb+srv://clebersonweng:MongoDb.010488@mongodb.de9az25.mongodb.net/MongoDb?retryWrites=true&w=majority');
+   /*const client = await MongoClient.connect('mongodb+srv://clebersonweng:MongoDb.010488@mongodb.de9az25.mongodb.net/MongoDb?retryWrites=true&w=majority');
    const db = client.db();
-   const meetupsCollection = db.collection('wedding');
-   const meetups = await meetupsCollection.find().toArray();
-   console.log("photos",meetups)
-   client.close();
+   const photosCollection = db.collection('wedding');
+   const photos = await photosCollection.find().toArray();
+   console.log("photos", photos)
+   client.close();*/
 
+
+   const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image`, {
+      headers: {
+         Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
+      }
+   }).then(r => r.json())
+
+   
+
+   const { resources } = results;
+   console.log("result", resources.length);
    return {
       props:{
-         meetups:meetups.map(meetup => ({
-            title:meetup.title,
-            image:meetup.image,
-            id:meetup._id.toString()
+         photos:resources.map(photo => ({
+            title:photo.public_id,
+            image:photo.secure_url,
+            id:photo.asset_id
          })),
          revalidate:1 // seconds
       }

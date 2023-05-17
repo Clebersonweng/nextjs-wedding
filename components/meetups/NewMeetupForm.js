@@ -8,13 +8,15 @@ function NewMeetupForm(props) {
 	
 	const titleInputRef = useRef();
 	const imageInputRef = useRef();
+	
 
 	function submitHandler(event) {
 		event.preventDefault();
 
 		const enteredTitle = titleInputRef.current.value;
 		const enteredImage = imageInputRef.current.value;
-
+		console.log("imageInputRef",enteredImage)
+		
 		const meetupData = {
 			title: enteredTitle,
 			image: enteredImage,
@@ -50,6 +52,7 @@ function NewMeetupForm(props) {
 							<input
 								className="bg-white-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
 								id='image'
+								name='image[]'
 								type="url"
 								placeholder=""
 								ref={imageInputRef}
