@@ -40,7 +40,6 @@ export async function getStaticProps() {
    console.log("photos", photos)
    client.close();*/
 
-
    const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=400`, {
       method: "GET",
       headers: {
@@ -48,7 +47,7 @@ export async function getStaticProps() {
       },
    }).then(r => r.json())
 
-   const { resources } = results;
+   const { resources } = await results;
 
    return {
       props: {
