@@ -10,7 +10,7 @@ function HomePage(props) {
             <title>Kleica & Cleberson</title>
             <meta name="description" content="Casamento de Kleica e Cleberson"></meta>
          </Head>
-         <PhotoList photos={props.photos} />
+         {props.photos.length > 0 ? <PhotoList photos={props.photos} /> : ''}
       </Fragment>
    )
 };
@@ -51,7 +51,7 @@ export async function getStaticProps() {
 
    return {
       props: {
-         photos: resources.map(photo => ({
+         photos: resources?.map(photo => ({
             title: photo.public_id,
             image: photo.secure_url,
             id: photo.asset_id
