@@ -8,10 +8,10 @@ function NewPhotoPage() {
    const router = useRouter();
 
    async function addPhotoHandler(enteredMeetupData) {
-      const response = await fetch('/api/new-photo',{
-         method:'POST',
-         body:JSON.stringify(enteredMeetupData),
-         headers:{'Content-type':'application/json'}
+      const response = await fetch('/api/new-photo', {
+         method: 'POST',
+         body: JSON.stringify(enteredMeetupData),
+         headers: { 'Content-type': 'application/json' }
       });
 
       const data = await response.json();
@@ -27,7 +27,7 @@ function NewPhotoPage() {
             <title>Add new photo</title>
             <meta name="description" content="Add new photo"></meta>
          </Head>
-         <NewPhotoForm onAddPhoto={addPhotoHandler}/>
+         <NewPhotoForm onAddPhoto={addPhotoHandler} />
       </Fragment>
    )
 };

@@ -10,7 +10,7 @@ function HomePage(props) {
             <title>Kleica & Cleberson</title>
             <meta name="description" content="Casamento de Kleica e Cleberson"></meta>
          </Head>
-         <PhotoList meetups={props.photos} />
+         <PhotoList photos={props.photos} />
       </Fragment>
    )
 };
