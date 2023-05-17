@@ -3,7 +3,7 @@ import { Fragment } from "react";
 function PhotoDetail(props){
    return (
       <Fragment>
-         <section className={classes.detail}>
+         <section className="">
             <img src={props.image} alt="first wedding" />
          </section>
       </Fragment>

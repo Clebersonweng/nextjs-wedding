@@ -17,12 +17,12 @@ function NewPhotoForm(props) {
 		const enteredImage = imageInputRef.current.value;
 		console.log("imageInputRef",enteredImage)
 		
-		const meetupData = {
+		const photoData = {
 			title: enteredTitle,
 			image: enteredImage,
 		};
 
-		props.onAddPhoto(meetupData);
+		props.onAddPhoto(photoData);
 	}
 
 	

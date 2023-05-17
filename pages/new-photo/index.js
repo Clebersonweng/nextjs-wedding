@@ -2,9 +2,9 @@ import { Fragment } from 'react';
 import Head from 'next/head';
 
 import { useRouter } from 'next/router';
-import NewPhotoForm from '../../components/meetups/NewPhotoForm';
+import NewPhotoForm from '../../components/photos/NewPhotoForm';
 
-function NewMeetupPage() {
+function NewPhotoPage() {
    const router = useRouter();
 
    async function addPhotoHandler(enteredMeetupData) {
@@ -27,9 +27,9 @@ function NewMeetupPage() {
             <title>Add new photo</title>
             <meta name="description" content="Add new photo"></meta>
          </Head>
-         <NewPhotoForm onAddMeetup={addPhotoHandler}/>
+         <NewPhotoForm onAddPhoto={addPhotoHandler}/>
       </Fragment>
    )
 };
 
-export default NewMeetupPage;
+export default NewPhotoPage;

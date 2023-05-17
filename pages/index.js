@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
-import PhotoList from '../components/meetups/PhotoList';
+import PhotoList from '../components/photos/PhotoList';
 
 function HomePage(props) {
 
@@ -47,6 +47,8 @@ export async function getStaticProps() {
          Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
       },
    }).then(r => r.json())
+
+   const { resources } = results;
 
    return {
       props: {
