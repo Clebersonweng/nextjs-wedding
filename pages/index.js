@@ -41,12 +41,7 @@ export async function getStaticProps(){
    const meetups = await meetupsCollection.find().toArray();
    console.log("photos",meetups)
    client.close();
-/**
- * 
- 
 
-
- */
    return {
       props:{
          meetups:meetups.map(meetup => ({
@@ -58,4 +53,5 @@ export async function getStaticProps(){
       }
    }
 }
+
 export default HomePage;
