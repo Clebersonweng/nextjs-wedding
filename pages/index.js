@@ -1,8 +1,11 @@
-import { Fragment } from 'react';
+import { Fragment,useState } from 'react';
 import Head from 'next/head';
 import PhotoList from '../components/photos/PhotoList';
 
 function HomePage(props) {
+   //const [photos,setPhotos] = useState([]);
+
+
 
    return (
       <Fragment>
@@ -10,7 +13,7 @@ function HomePage(props) {
             <title>Kleica & Cleberson</title>
             <meta name="description" content="Casamento de Kleica e Cleberson"></meta>
          </Head>
-         <PhotoList photos={props.photos} />
+         {props.photos && <PhotoList photos={props.photos} />}
       </Fragment>
    )
 };
@@ -39,7 +42,6 @@ const getPhotos = async () => {
       headers: {
          Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
       },
-
    }).then(r => r.json())
    } catch (error) {
       console.error(error);
@@ -47,12 +49,13 @@ const getPhotos = async () => {
 
    const { resources } = await results;
 
-   const data = resources;
-   return data;
+   //const data = resources;
+   return resources;
   
 };
 
 export async function getStaticProps() {
+
    //fetch data from an Api
    /*const client = await MongoClient.connect('mongodb+srv://clebersonweng:MongoDb.010488@mongodb.de9az25.mongodb.net/MongoDb?retryWrites=true&w=majority');
    const db = client.db();
