@@ -65,7 +65,8 @@ export async function getStaticProps() {
    client.close();*/
 
    
-   const resources = await getPhotos();
+   let resources = null ;
+   resources = await getPhotos();
    
    return {
       props: {
