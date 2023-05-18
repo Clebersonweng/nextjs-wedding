@@ -78,7 +78,8 @@ export async function getStaticProps() {
       asset_id:'Wedding/DSC_9601_pgl3lu',
       format:'jpg',
       title:'title',
-      secure_url:'https://res.cloudinary.com/cle-wengrzynek/image/upload/v1684242206/Wedding/DSC_9601_pgl3lu.jpg'
+      secure_url:'https://res.cloudinary.com/cle-wengrzynek/image/upload/v1684242206/Wedding/DSC_9601_pgl3lu.jpg',
+      public_id:'dasdsadsa32432'
    }];
    //photos = await getPhotos();
 
