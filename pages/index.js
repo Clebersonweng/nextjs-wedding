@@ -73,12 +73,12 @@ export async function getStaticProps() {
    client.close();*/
 
    
-   let resources = null ;
-   resources = await getPhotos();
-   
+   let photos = null ;
+   photos = await getPhotos();
+   const allPhotos = JSON.stringify(photos)
    return {
       props: {
-         data:resources,
+         data:allPhotos,
        },
       revalidate: 1 // seconds
    }
