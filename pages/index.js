@@ -3,26 +3,14 @@ import Head from 'next/head';
 import PhotoList from '../components/photos/PhotoList';
 
 function HomePage({ data }) {
-   const [photos, setPhotos] = useState([{
-      id:'Wedding/DSC_9601_pgl3lu',
-      asset_id:'Wedding/DSC_9601_pgl3lu',
-      format:'jpg',
-      title:'title',
-      image:'https://res.cloudinary.com/cle-wengrzynek/image/upload/v1684242206/Wedding/DSC_9601_pgl3lu.jpg',
-      secure_url:'https://res.cloudinary.com/cle-wengrzynek/image/upload/v1684242206/Wedding/DSC_9601_pgl3lu.jpg',
-      public_id:'dasdsadsa32432'
-   }]);
 
-   const result = data?.map(photo => ({
+   const photos = data?.map(photo => ({
       title: photo.public_id,
       image: photo.secure_url,
       id: photo.asset_id,
       format: photo.format
    }))
 
-   useEffect(() => {
-      setPhotos(result)
-   }, []);
 
    return (
       <Fragment>
@@ -93,7 +81,7 @@ export async function getStaticProps() {
 
    return {
       props: {
-         data: JSON.parse(JSON.stringify(photos)),
+         data: photos,
       },
       revalidate: 1 // seconds
    }
