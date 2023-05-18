@@ -3,7 +3,7 @@ import Head from 'next/head';
 import PhotoList from '../components/photos/PhotoList';
 
 function HomePage({data}) {
-   const [photos,setPhotos] = useState([]);
+   const [photos,setPhotos] = useState(null);
 
    const result = data?.map(photo => ({
       title: photo.public_id,
