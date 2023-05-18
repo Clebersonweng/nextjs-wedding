@@ -49,14 +49,10 @@ export async function getStaticProps() {
 
    const data = await results;
    const resources = data.resources;
-   
+
    return {
       props: {
-         photos: resources?.map(photo => ({
-            title: photo.public_id,
-            image: photo.secure_url,
-            id: photo.asset_id
-         })),
+         photos: [],
          revalidate: 1 // seconds
       }
    }
