@@ -1,20 +1,20 @@
-import { Fragment,useEffect,useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Head from 'next/head';
 import PhotoList from '../components/photos/PhotoList';
 
-function HomePage({data}) {
-   const [photos,setPhotos] = useState(null);
+function HomePage({ data }) {
+   const [photos, setPhotos] = useState(null);
 
    const result = data?.map(photo => ({
       title: photo.public_id,
       image: photo.secure_url,
       id: photo.asset_id,
-      format:photo.format
+      format: photo.format
    }))
-  
+
    useEffect(() => {
       setPhotos(result)
-   },[]);
+   }, []);
 
    return (
       <Fragment>
@@ -47,11 +47,11 @@ const getPhotos = async () => {
    let results = null;
    try {
       results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=10`, {
-      method: "GET",
-      headers: {
-         Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
-      },
-   }).then(r => r.json())
+         method: "GET",
+         headers: {
+            Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
+         },
+      }).then(r => r.json())
    } catch (error) {
       console.error(error);
    }
@@ -60,7 +60,7 @@ const getPhotos = async () => {
 
    //const data = resources;
    return resources;
-  
+
 };
 
 export async function getStaticProps() {
@@ -73,14 +73,24 @@ export async function getStaticProps() {
    console.log("photos", photos)
    client.close();*/
 
-   
-   let photos = null ;
+
+   let photos = null;
    photos = await getPhotos();
-   const allPhotos = JSON.parse(JSON.stringify(photos));
+   //const allPhotos = JSON.parse(JSON.stringify(photos));
+
+   if (!photos) {
+      return {
+         redirect: {
+            destination: '/',
+            permanent: false,
+         },
+      }
+   }
+
    return {
       props: {
-         data:allPhotos,
-       },
+         data: photos,
+      },
       revalidate: 1 // seconds
    }
 }
