@@ -77,7 +77,7 @@ export async function getStaticProps() {
       secure_url:'https://res.cloudinary.com/cle-wengrzynek/image/upload/v1684242206/Wedding/DSC_9601_pgl3lu.jpg',
       public_id:'dasdsadsa32432'
    }];*/
-   photos = await getPhotos();
+   const photos = await getPhotos();
 
    return {
       props: {
