@@ -74,18 +74,8 @@ export async function getStaticProps() {
    client.close();*/
 
 
-   let photos = null;
+   let photos = [{asset_id:'',public_id:'',format:'jpg',title:'title'}];
    photos = await getPhotos();
-   //const allPhotos = JSON.parse(JSON.stringify(photos));
-
-   if (!photos) {
-      return {
-         redirect: {
-            destination: '/',
-            permanent: false,
-         },
-      }
-   }
 
    return {
       props: {
