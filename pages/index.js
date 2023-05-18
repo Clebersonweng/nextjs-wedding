@@ -35,7 +35,7 @@ function HomePage(props) {
 };*/
 
 const getPhotos = async () => {
-   let results = {};
+   let results = null;
    try {
       results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=10`, {
       method: "GET",
