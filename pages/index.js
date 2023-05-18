@@ -1,11 +1,19 @@
-import { Fragment,useState } from 'react';
+import { Fragment,useEffect,useState } from 'react';
 import Head from 'next/head';
 import PhotoList from '../components/photos/PhotoList';
 
-function HomePage(props) {
-   //const [photos,setPhotos] = useState([]);
+function HomePage({data}) {
+   const [photos,setPhotos] = useState([]);
 
-
+   const result = data?.map(photo => ({
+      title: photo.public_id,
+      image: photo.secure_url,
+      id: photo.asset_id
+   }))
+  
+   useEffect(() => {
+      setPhotos(result)
+   },[]);
 
    return (
       <Fragment>
@@ -13,7 +21,7 @@ function HomePage(props) {
             <title>Kleica & Cleberson</title>
             <meta name="description" content="Casamento de Kleica e Cleberson"></meta>
          </Head>
-         {props.photos && <PhotoList photos={props.photos} />}
+         {photos && <PhotoList photos={photos} />}
       </Fragment>
    )
 };
@@ -70,14 +78,11 @@ export async function getStaticProps() {
    
    return {
       props: {
-         photos: resources?.map(photo => ({
-            title: photo.public_id,
-            image: photo.secure_url,
-            id: photo.asset_id
-         })),
-         revalidate: 1 // seconds
-      }
+         data:resources,
+       },
+      revalidate: 1 // seconds
    }
 }
+
 
 export default HomePage;
