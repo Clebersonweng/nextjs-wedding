@@ -8,7 +8,8 @@ function HomePage({data}) {
    const result = data?.map(photo => ({
       title: photo.public_id,
       image: photo.secure_url,
-      id: photo.asset_id
+      id: photo.asset_id,
+      format:photo.format
    }))
   
    useEffect(() => {
@@ -75,7 +76,7 @@ export async function getStaticProps() {
    
    let photos = null ;
    photos = await getPhotos();
-   const allPhotos = JSON.stringify(photos)
+   const allPhotos = JSON.parse(JSON.stringify(photos));
    return {
       props: {
          data:allPhotos,
