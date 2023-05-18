@@ -10,7 +10,7 @@ function HomePage(props) {
             <title>Kleica & Cleberson</title>
             <meta name="description" content="Casamento de Kleica e Cleberson"></meta>
          </Head>
-         {props.photos.length > 0 ? <PhotoList photos={props.photos} /> : ''}
+         <PhotoList photos={props.photos} />
       </Fragment>
    )
 };
@@ -40,7 +40,7 @@ export async function getStaticProps() {
    console.log("photos", photos)
    client.close();*/
 
-   const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=400`, {
+   const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=10`, {
       method: "GET",
       headers: {
          Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
