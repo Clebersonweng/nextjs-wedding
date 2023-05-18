@@ -31,6 +31,27 @@ function HomePage(props) {
    }
 };*/
 
+const getPhotos = async () => {
+   let results = {};
+   try {
+      results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=10`, {
+      method: "GET",
+      headers: {
+         Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
+      },
+
+   }).then(r => r.json())
+   } catch (error) {
+      console.error(error);
+   }
+
+   const { resources } = await results;
+
+   const data = resources;
+   return data;
+  
+};
+
 export async function getStaticProps() {
    //fetch data from an Api
    /*const client = await MongoClient.connect('mongodb+srv://clebersonweng:MongoDb.010488@mongodb.de9az25.mongodb.net/MongoDb?retryWrites=true&w=majority');
@@ -40,19 +61,16 @@ export async function getStaticProps() {
    console.log("photos", photos)
    client.close();*/
 
-   const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=10`, {
-      method: "GET",
-      headers: {
-         Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
-      },
-   }).then(r => r.json())
-
-   const data = await results;
-   const resources = data.resources;
-
+   
+   const resources = await getPhotos();
+   
    return {
       props: {
-         photos: [],
+         photos: resources?.map(photo => ({
+            title: photo.public_id,
+            image: photo.secure_url,
+            id: photo.asset_id
+         })),
          revalidate: 1 // seconds
       }
    }
