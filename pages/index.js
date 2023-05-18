@@ -74,8 +74,13 @@ export async function getStaticProps() {
    client.close();*/
 
 
-   let photos = [{asset_id:'',public_id:'',format:'jpg',title:'title'}];
-   photos = await getPhotos();
+   let photos = [{
+      asset_id:'Wedding/DSC_9601_pgl3lu',
+      format:'jpg',
+      title:'title',
+      secure_url:'https://res.cloudinary.com/cle-wengrzynek/image/upload/v1684242206/Wedding/DSC_9601_pgl3lu.jpg'
+   }];
+   //photos = await getPhotos();
 
    return {
       props: {
