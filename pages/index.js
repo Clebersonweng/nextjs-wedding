@@ -93,7 +93,7 @@ export async function getStaticProps() {
 
    return {
       props: {
-         data: photos,
+         data: JSON.parse(JSON.stringify(photos)),
       },
       revalidate: 1 // seconds
    }
