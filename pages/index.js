@@ -47,8 +47,9 @@ export async function getStaticProps() {
       },
    }).then(r => r.json())
 
-   const { resources } = await results;
-
+   const data = await results;
+   const resources = data.resources;
+   
    return {
       props: {
          photos: resources?.map(photo => ({
