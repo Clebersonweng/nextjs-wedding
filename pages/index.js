@@ -87,6 +87,7 @@ export async function getStaticProps() {
       public_id:'dasdsadsa32432'
    }];*/
    let photos = await getPhotos();
+   
    if( typeof photos == 'undefined' )
    {
       photos = [{
@@ -97,9 +98,11 @@ export async function getStaticProps() {
          public_id:'dasdsadsa32432'
       }];
    }
+   const allProfiles = JSON.stringify(photos)
+   
    return {
       props: {
-         photos: photos,
+         photos: allProfiles,
       },
       revalidate: 5 // seconds
    }
