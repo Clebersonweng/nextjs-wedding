@@ -9,13 +9,12 @@ function HomePage(props) {
       return <p>loading…</p>
    }
 
-   const newPhotos = photos?.map(photo => ({
+   const newPhotos = JSON.parse(photos)?.map(photo => ({
       title: photo.public_id,
       image: photo.secure_url,
       id: photo.asset_id,
       format: photo.format
    }))
-
 
    return (
       <Fragment>
@@ -56,9 +55,16 @@ const getPhotos = async () => {
 
       const result = await response.json();
       const { resources } = result;
-      console.log("resources show");
       
-      return resources;
+      const newData = resources?.map(photo => ({
+         asset_id: photo.asset_id,
+         public_id: photo.public_id,
+         format: photo.format,
+         url: photo.url,
+         secure_url: photo.secure_url,
+      }))
+      console.log("resources show",newData);
+      return newData;
 
    } catch (error) {
       console.error(error);
@@ -99,7 +105,7 @@ export async function getStaticProps() {
       }];
    }
    const allProfiles = JSON.stringify(photos)
-   
+
    return {
       props: {
          photos: allProfiles,
