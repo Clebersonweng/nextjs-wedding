@@ -108,7 +108,7 @@ export async function getStaticProps() {
 
    return {
       props: {
-         photos: allProfiles,
+         photos: allProfiles || null,
       },
       revalidate: 5 // seconds
    }
