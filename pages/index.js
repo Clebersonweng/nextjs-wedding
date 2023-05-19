@@ -2,9 +2,14 @@ import { Fragment, useEffect, useState } from 'react';
 import Head from 'next/head';
 import PhotoList from '../components/photos/PhotoList';
 
-function HomePage({ data }) {
+function HomePage(props) {
 
-   const photos = data?.map(photo => ({
+   const { photos } = props
+   if (!photos) {
+      return <p>loading…</p>
+   }
+
+   const newPhotos = photos?.map(photo => ({
       title: photo.public_id,
       image: photo.secure_url,
       id: photo.asset_id,
@@ -18,7 +23,7 @@ function HomePage({ data }) {
             <title>Kleica & Cleberson</title>
             <meta name="description" content="Casamento de Kleica e Cleberson"></meta>
          </Head>
-         {photos && <PhotoList photos={photos} />}
+         {newPhotos && <PhotoList photos={newPhotos} />}
       </Fragment>
    )
 };
@@ -40,25 +45,29 @@ function HomePage({ data }) {
 };*/
 
 const getPhotos = async () => {
-   let results = null;
+
    try {
-      results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=10`, {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=10`, {
          method: "GET",
          headers: {
             Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
          },
-      }).then(r => r.json())
+      });
+
+      const result = await response.json();
+      const { resources } = result;
+      console.log("resources",resources);
+      
+      return resources;
+
    } catch (error) {
       console.error(error);
+      throw new Error(error);
    }
-
-   const { resources } = await results;
-
-   //const data = resources;
-   return resources;
 
 };
 
+//export async function getStaticProps() {
 export async function getStaticProps() {
 
    //fetch data from an Api
@@ -81,9 +90,9 @@ export async function getStaticProps() {
 
    return {
       props: {
-         data: photos,
+         photos: photos,
       },
-      revalidate: 1 // seconds
+      revalidate: 5 // seconds
    }
 }
 
