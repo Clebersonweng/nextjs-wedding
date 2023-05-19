@@ -56,7 +56,7 @@ const getPhotos = async () => {
 
       const result = await response.json();
       const { resources } = result;
-      console.log("resources",resources);
+      console.log("resources show");
       
       return resources;
 
@@ -86,8 +86,17 @@ export async function getStaticProps() {
       secure_url:'https://res.cloudinary.com/cle-wengrzynek/image/upload/v1684242206/Wedding/DSC_9601_pgl3lu.jpg',
       public_id:'dasdsadsa32432'
    }];*/
-   const photos = await getPhotos();
-
+   let photos = await getPhotos();
+   if( typeof photos == 'undefined' )
+   {
+      photos = [{
+         asset_id:'Wedding/DSC_9601_pgl3lu',
+         format:'jpg',
+         title:'title',
+         secure_url:'https://res.cloudinary.com/cle-wengrzynek/image/upload/v1684242206/Wedding/DSC_9601_pgl3lu.jpg',
+         public_id:'dasdsadsa32432'
+      }];
+   }
    return {
       props: {
          photos: photos,
