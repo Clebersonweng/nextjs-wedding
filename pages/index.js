@@ -5,7 +5,7 @@ import PhotoList from '../components/photos/PhotoList';
 function HomePage(props) {
 
    const { photos } = props;
-   
+
    if (!photos) {
       return <p>loading…</p>
    }
@@ -90,10 +90,12 @@ export const getServerSideProps = async () => {
          height,
       };
    });
+
    return {
       props: {
-         photos: images,
+         photos: images || null,
       },
    };
 };
+
 export default HomePage;
