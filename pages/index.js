@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import Head from 'next/head';
 import PhotoList from '../components/photos/PhotoList';
 

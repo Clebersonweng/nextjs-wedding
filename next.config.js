@@ -1,6 +1,8 @@
 module.exports = {
    reactStrictMode: false,
    images: {
-     domains: ['res.cloudinary.com'],
+      loader: 'cloudinary',
+      domains: ['res.cloudinary.com'],
+      path: 'https://res.cloudinary.com/cle-wengrzynek/image/upload'
    },
- }
+}
