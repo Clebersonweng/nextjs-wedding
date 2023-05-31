@@ -7,7 +7,7 @@ function HomePage(props) {
    const { photos } = props;
 
    if (!photos) {
-      return <p>loading…</p>
+      return <p>Loading…</p>
    }
 
    return (
@@ -37,45 +37,16 @@ function HomePage(props) {
    }
 };*/
 
-const getPhotos = async () => {
-
-   try {
-      const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=10`, {
-         method: "GET",
-         headers: {
-            Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
-         },
-      });
-
-      const result = await response.json();
-      const { resources } = result;
-
-      const newData = await resources?.map(photo => ({
-         asset_id: photo.asset_id,
-         public_id: photo.public_id,
-         format: photo.format,
-         url: photo.url,
-         secure_url: photo.secure_url,
-      }));
-
-      console.log("resources show", newData);
-      return newData;
-
-   } catch (error) {
-      console.error(error);
-      throw new Error(error);
-   }
-};
-
-
-
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
+   const folderName = "Wedding";
+   
    const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=400`, {
       method: "GET",
       headers: {
          Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
       },
    });
+
    const result = await results.json();
    const { resources } = result;
 
@@ -86,14 +57,22 @@ export const getServerSideProps = async () => {
          title: resource.public_id,
          image: resource.secure_url,
          format: resource.format,
+         folder: resource.folder,
          width,
          height,
       };
    });
 
+   let imagesWedding = images.filter((image) => {
+      if (image.folder === folderName) {
+         return true;
+      }
+      return false;
+   })
+
    return {
       props: {
-         photos: images || null,
+         photos: imagesWedding || null,
       },
    };
 };
