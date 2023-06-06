@@ -2,10 +2,17 @@ import { Fragment } from 'react';
 import Head from 'next/head';
 import PhotoList from '../components/photos/PhotoList';
 
+import { search, mapImageResources, getFolders } from '../lib/cloudinary';
+
+import dynamic from "next/dynamic";
+
+const DynamicDatepicker = dynamic(() => import("./MyCarousel"), { ssr: false });
+
 function HomePage(props) {
 
-   const { photos } = props;
-
+   const { photos,nextCursor } = props;
+   console.log('next_cursor',nextCursor)
+  
    if (!photos) {
       return <p>Loading…</p>
    }
@@ -16,7 +23,8 @@ function HomePage(props) {
             <title>Kleica & Cleberson</title>
             <meta name="description" content="Casamento de Kleica e Cleberson"></meta>
          </Head>
-         {photos && <PhotoList photos={photos} />}
+         photos && <PhotoList photos={photos} />
+         {/*{photos && <DynamicDatepicker  photos={photos}/>}*/}
       </Fragment>
    )
 };
@@ -40,28 +48,16 @@ function HomePage(props) {
 export const getStaticProps = async () => {
    const folderName = "Wedding";
    
-   const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=400`, {
-      method: "GET",
-      headers: {
-         Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')} }`
-      },
+   const results = await search({
+      max_results:400
    });
 
    const result = await results.json();
-   const { resources } = result;
+   const { resources,next_cursor: nextCursor } = result;
 
-   const images = resources?.map((resource) => {
-      const { width, height } = resource;
-      return {
-         id: resource.asset_id,
-         title: resource.public_id,
-         image: resource.secure_url,
-         format: resource.format,
-         folder: resource.folder,
-         width,
-         height,
-      };
-   });
+   //const resFolders = await getFolders();
+
+   const images = mapImageResources(resources);
 
    let imagesWedding = images.filter((image) => {
       if (image.folder === folderName) {
@@ -73,6 +69,7 @@ export const getStaticProps = async () => {
    return {
       props: {
          photos: imagesWedding || null,
+         nextCursor
       },
    };
 };
