@@ -4,14 +4,13 @@ import PhotoList from '../components/photos/PhotoList';
 
 import { search, mapImageResources, getFolders } from '../lib/cloudinary';
 
-import dynamic from "next/dynamic";
+//import dynamic from "next/dynamic";
+//const Carousel = dynamic(() => import("../components/photos/MyCarousel"), { ssr: false });
 
-const DynamicDatepicker = dynamic(() => import("./MyCarousel"), { ssr: false });
 
 function HomePage(props) {
 
    const { photos,nextCursor } = props;
-   console.log('next_cursor',nextCursor)
   
    if (!photos) {
       return <p>Loading…</p>
@@ -23,8 +22,7 @@ function HomePage(props) {
             <title>Kleica & Cleberson</title>
             <meta name="description" content="Casamento de Kleica e Cleberson"></meta>
          </Head>
-         photos && <PhotoList photos={photos} />
-         {/*{photos && <DynamicDatepicker  photos={photos}/>}*/}
+         <PhotoList photos={photos} />
       </Fragment>
    )
 };

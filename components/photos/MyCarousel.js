@@ -1,11 +1,8 @@
 import { useEffect, Fragment } from "react";
 
-import {
-   Carousel,
-   initTE,
-} from "tw-elements";
+import { Carousel,initTE } from "tw-elements";
 
-import CarouselItem from "../components/photos/CarouselItem";
+import CarouselItem from "./CarouselItem";
 
 function MyCarousel(props) {
    const { photos: images } = props;
