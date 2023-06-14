@@ -1,10 +1,8 @@
-import { useEffect,Fragment, useState } from "react";
+import { Fragment } from "react";
 import Image from "next/image";
 
-
 function CarouselItem(props) {
-   //const image = props.image;
-   let styleClass = 'relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none carousel-item h-3/5 max-h-full';
+   let styleClass = 'relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none carousel-item';
    const oldProps =  {...props};
    let newProps = {...oldProps,'data-te-carousel-active':'active'}
 
@@ -15,16 +13,15 @@ function CarouselItem(props) {
 
    return (
       <Fragment>
-         {/*<!--First item-->*/}
          <div 
             className={styleClass} 
             data-te-carousel-item
             {...newProps}
          >
-            <div className="flex bg-white md:bg-transparent  ">
+            <div className="rounded flex flex-col items-center">
                <img
                   src={props.image}
-                  className="object-cover  object-contain"
+                  className="rounded object-contain max-w-screen-sm max-w-screen-md max-w-screen-lg max-w-screen-xl max-w-screen-2xl h-[calc(100vh-74px)]"
                   alt="Wild Landscape" />
             </div>
          </div>

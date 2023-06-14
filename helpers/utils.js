@@ -10,8 +10,8 @@ export function lowerCase(text) {
 };
 
 // put inside square brackets you character, what you whant replace
-export function cleanCharacters(text,charReplace='/[#_/*.]/g'){
-   let resultText =  text.replace(charReplace,'')
+export function cleanCharacters(text, charReplace = '/[#_/*.]/g') {
+   let resultText = text.replace(charReplace, '')
 
    return resultText;
 }
@@ -24,4 +24,13 @@ export const parseJson = async response => {
    } catch (err) {
       throw new Error("Did not receive JSON, instead received: " + text)
    }
+}
+
+export function handleKeypress(event,props){
+   const keyPressed = event.key
+
+   if (event.key === 'Escape') {
+      props.onClose(true);
+   }
+   console.log("keyPressed",keyPressed);
 }
