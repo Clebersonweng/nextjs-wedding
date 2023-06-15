@@ -6,11 +6,12 @@ export async function getImageAttachment(id) {
 };
 
 export function lowerCase(text) {
+   text = text || 'image';
    return text.toLowerCase();
 };
 
 // put inside square brackets you character, what you whant replace
-export function cleanCharacters(text, charReplace = '/[#_/*.]/g') {
+export function cleanCharacters(text='', charReplace = '/[#_/*.]/g') {
    let resultText = text.replace(charReplace, '')
 
    return resultText;
@@ -29,8 +30,7 @@ export const parseJson = async response => {
 export function handleKeypress(event,props){
    const keyPressed = event.key
 
-   if (event.key === 'Escape') {
+   if (keyPressed === 'Escape') {
       props.onClose(true);
    }
-   console.log("keyPressed",keyPressed);
 }

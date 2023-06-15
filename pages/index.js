@@ -21,8 +21,6 @@ function HomePage(props) {
    function openCarousel(e) {
       const imageId = e.target.id;
       setImageCarousel(imageId);
-      console.log('open carousel ',imageId);
-
       setModal(true);
    };   
    
@@ -42,22 +40,6 @@ function HomePage(props) {
       </Fragment>
    )
 };
-
-/** Roda somente no servidor , para cada requisicao ele gera os dados estaticos novamente para caso de dados mudarem constantementes,
- * a funcao renderizara previamente com os dados devolvidos sendo sempre em json.
- */
-/*export async function getServerSideProps(context) {
-
-   const req = context.req;
-   const res = context.res;
-
-   //fetch data from an API
-   return {
-      props:{
-         meetups:DUMMY_LIST
-      }
-   }
-};*/
 
 export const getStaticProps = async () => {
    const folderName = "Wedding";

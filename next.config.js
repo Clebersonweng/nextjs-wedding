@@ -1,9 +1,15 @@
+const cloudinaryBaseUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/`;
+//Para usar variaveis gloabis do dotenv e necesario colocar no next.config
 module.exports = {
-   reactStrictMode: false,
+   reactStrictMode: true,
    images: {
-      //loader: 'cloudinary',
+      loader: 'cloudinary',
       domains: ['res.cloudinary.com'],
-      unoptimized: true,
-      //path: 'https://res.cloudinary.com/cle-wengrzynek/image/upload'
+      unoptimized: false,
+      path: cloudinaryBaseUrl
    },
+   env: {
+      CLOUDINARY_URL: process.env.CLOUDINARY_URL,
+      CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+   }
 }

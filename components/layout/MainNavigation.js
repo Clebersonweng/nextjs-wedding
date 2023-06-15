@@ -14,7 +14,7 @@ function MainNavigation() {
                </div>
 
                <ul className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0">
-                  <li className='hover:-translate-y-0.5 transition motion-reduce:hover:translate-y-0 motion-reduce:transition-none'>
+                  <li className='hover:-translate-y-0.5 transition motion-reduce:hover:translate-y-0 motion-reduce:transition-none invisible'>
                      <Link className="" href='/'><a className="p-2 lg:px-4 md:mx-2 text-white rounded bg-indigo-600">Fotos</a></Link>
                   </li>
                   <li className='hover:-translate-y-0.5 transition motion-reduce:hover:translate-y-0 motion-reduce:transition-none invisible'>
