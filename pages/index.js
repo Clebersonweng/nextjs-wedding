@@ -22,8 +22,8 @@ function HomePage(props) {
       const imageId = e.target.id;
       setImageCarousel(imageId);
       setModal(true);
-   };   
-   
+   };
+
    function closeCarousel() {
       setModal(false);
    };
@@ -42,10 +42,10 @@ function HomePage(props) {
 };
 
 export const getStaticProps = async () => {
-   const folderName = "Wedding";
+   const folderName = "wedding";
 
    const results = await search({
-      max_results: 157
+      max_results: 14
    });
 
    const result = await results.json();
