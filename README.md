@@ -1,5 +1,4 @@
-This project was created for learn about nextjs using cloudinary for storage the images.
-This project have a carousel of images.
+# In this project i'm using NextJs, Tailwind and Cloudinary for show the photos and the carousel with big images, also you can download the image
 
 # steps 
 
