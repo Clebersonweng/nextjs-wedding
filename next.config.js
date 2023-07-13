@@ -1,3 +1,5 @@
+//https://res.cloudinary.com/djcrtyyvf/image/upload/v1689076364/wedding/imgbrnqrrocnutv6xcrs.jpg
+
 const cloudinaryBaseUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/`;
 //Para usar variaveis gloabis do dotenv e necesario colocar no next.config
 module.exports = {
